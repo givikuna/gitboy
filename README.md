@@ -10,15 +10,16 @@ it is NOT a multi-repo management tool, just ensure all the folders exist where 
 - declarative: define all of your public repositories in one config file
 - uses `libgit2` (doesn't require a system `git`, but you probably should have it)
 - very easy to install for nixos (currently the only supported distribution)
+- xdg compliant (4 lines of code :3)
 
 ## configuration
 create a tom file `config.toml` (by default at `~/.config/gitboy/config.toml`) with a similar structure to this:
 ```toml
 [folders."~/Projects/Personal"]
 repos = [
-    "https://github.com/user/repo1"
-    "https://github.com/user/repo2"
-    "https://codeberg.org/user/repo3"
+    "https://github.com/user/repo1",
+    "https://github.com/user/repo2",
+    "https://codeberg.org/user/repo3",
 ]
 
 [folders."~/Projects/Contributing"]
@@ -83,6 +84,13 @@ import `gitboy`:
     ];
 
     # optionally configure custom config path:
-    home.file.".config/gitboy/config.toml".source = ./your/own/path/config.toml;
+    xdg.configFile."gitboy/config.toml".source = ./your/own/path/config.toml;
 }
 ```
+
+## contributing
+
+- if you'd like to contribute, please do let me know
+- if you are someone that uses this and need something fixed, do let me know
+- if any suggestions, do let me know
+- you can either create an issue, or directly contact me on any of my socials or emails as listed on my public profile
