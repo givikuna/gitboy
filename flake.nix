@@ -55,7 +55,9 @@
         gitboy = craneLib.buildPackage (
           commonArgs
           // {
-            cargoLock = ./Cargo.lock;
+            cargoLock = {
+              lockFile = ./Cargo.lock;
+            };
           }
         );
       in
