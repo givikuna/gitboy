@@ -40,3 +40,49 @@ repos = [
 to get this to run on your system you must use nix flakes (as of right now)
 
 the flake is located at `./flake.nix`
+
+### for home-manager with flakes
+add `gitboy` as a flake input:
+```nix
+{
+    inputs = {
+        nixpkgs = {
+            url = "github:NixOS/nixpkgs/nixos-unstable";
+        };
+
+        home-manager = {
+            url = "github:nix-community/home-manager";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        gitboy = {
+            url = "github:givikuna/gitboy";
+        };
+    };
+}
+```
+
+make gitboy available to home-manager:
+```nix
+{
+    nixosConfigurations = {
+        host-name = nixpkgs.lib.nixosSystem {
+            specialArgs = { inherit inputs; }; # or gitboy if your config needs it like that
+            # ...
+        }
+    };
+}
+```
+
+import `gitboy`:
+```nix
+{ pkgs, inputs, ... }:
+{
+    home.packages = with pkgs; [
+        inputs.gitboy.packages.${pkgs.system}.default
+    ];
+
+    # optionally configure custom config path:
+    home.file.".config/gitboy/config.toml".source = ./your/own/path/config.toml;
+}
+```
