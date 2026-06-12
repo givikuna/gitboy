@@ -21,7 +21,6 @@ pub fn clone_repo(repo_url: &str, target_dir: &str) -> Result<()> {
         Path::new(&shellexpand::tilde(target_dir).to_string()).join(&repo_name);
 
     if clone_path.exists() {
-        info!("repository already exists at {:?}, skipping", clone_path);
         return Ok(());
     }
 
