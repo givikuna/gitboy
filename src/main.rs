@@ -8,8 +8,7 @@ use log::info;
 fn main() -> Result<()> {
     env_logger::init();
 
-    let args = cli::parse_args();
-    let cfg = config::load_config(&args.config)?;
+    let cfg = config::load_config(&cli::parse_args().config_path())?;
 
     info!("Loaded configuration for {} folders.", cfg.folders.len());
 
